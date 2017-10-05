@@ -1,29 +1,53 @@
-var x = 0;
-var y = 0;
-var canvasPosY;
+var x;
+var y;
 
-var canvasDimensions = Math.floor(((document.body.clientWidth-(document.body.clientWidth/4))-(document.body.clientWidth/4))/100)*100;
-var canvasPosX = document.body.clientWidth/4;
-if((document.body.clientHeight-canvasDimensions)/2 > 0){
-  canvasPosY = (document.body.clientHeight-canvasDimensions)/2;
-}else{
-  canvasPosY = 0;
+var canvasPosY;
+var canvasPosX;
+
+var canvasDimensions;
+
+var vertLine;
+var horiLine;
+
+var mySnake;
+
+function windowResized(){
+  setup();
+  draw();
 }
 
-var vertLine = new Array(canvasDimensions/20);
-var horiLine = new Array(canvasDimensions/20);
-
 function setup(){
+  frameRate(10);
+
+  x = 0;
+  y = 0;
+
+  canvasDimensions = Math.floor(((document.body.clientWidth-(document.body.clientWidth/4))-(document.body.clientWidth/4))/100)*100;
+
+  canvasPosX = document.body.clientWidth/4;
+
+  if((document.body.clientHeight-canvasDimensions)/2 > 0){
+    canvasPosY = (document.body.clientHeight-canvasDimensions)/2;
+  }else{
+    canvasPosY = 0;
+  }
+
+  vertLine = new Array(canvasDimensions/20);
+  horiLine = new Array(canvasDimensions/20);
+
   canvas = createCanvas(canvasDimensions,canvasDimensions);
-  console.log("height: "+document.body.clientHeight+" canvas start: "+document.body.clientHeight/4);
 
   canvas.position(canvasPosX,canvasPosY);
   canvas.style('z-index','1');
-  console.log(canvasDimensions);
+
   background(85,85,85);
+
+  mySnake = new snake();
+
 }
 
 function draw(){
+  background(85,85,85);
   for (var i = 0; i < vertLine.length; i++) {
     vertLine[i] = new drawVertLine();
   }
@@ -31,6 +55,8 @@ function draw(){
   for (var i = 0; i < horiLine.length; i++) {
    horiLine[i] = new drawHoriLine();
   }
+  mySnake.update();
+  mySnake.show();
 }
 
 function drawVertLine(){
@@ -43,4 +69,10 @@ function drawHoriLine(){
   yHLine = (canvasDimensions/canvasDimensions);
   y = y + (yHLine * 20);
   line(0,y,canvasDimensions,y);
+}
+
+function keyPressed(){
+  mySnake.moveSnake(keyCode);
+  mySnake.update();
+  mySnake.show();
 }
