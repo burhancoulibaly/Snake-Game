@@ -5,13 +5,12 @@ function snake(){
   this.directionX = 20;
   this.directionY = 0;
   this.timesEatin = 0;
-  this.tail = [];
+  this.tail = [{x:this.x,y:this.y}];
   this.snakePiece = (canvasDimensions/canvasDimensions)*20;
   fill(63,139,221);
 
   this.aSnake = new Array(1);
   this.foodCount = 0;
-  this.timesEatin = 0;
 
   this.foodLoc = function(){
     var foodX = Math.round(random(canvasDimensions-20)/20)*20;
@@ -30,67 +29,111 @@ function snake(){
           y:this.y
         }
 
-        this.tail[i] = this.tail[i+1];
-
         this.timesEatin ++;
 
-        console.log(this.tail[i]);
+        this.tail[i] = this.tail[i+1];
       }
     }else if(this.timesEatin > 0){
       this.timesEatin++;
     }
-
-    console.log(this.tail[0]);
-    console.log(this.tail[1]);
-    console.log(this.tail[2]);
   }
 
   this.moveSnake = function(keycode){
     if(keycode === UP_ARROW){
-      this.directionX = 0;
-      this.directionY = -20;
-      if(this.y + this.directionY >= this.y){
-        this.directionX = 0;
-        this.directionY = 0;
+      if(this.tail.length > 1 && this.timesEatin == this.tail.length){
+        console.log("h");
+        var pos = this.tail[this.timesEatin-1];
+        var pos2 = this.tail[this.timesEatin-2];
+        if(pos.y + this.directionY > pos2.y){
+          console.log("o");
+          this.directionX = this.directionX;
+          this.directionY = this.directionY;
+        }else{
+          this.directionX = 0;
+          this.directionY = -20;
+        }
       }else{
         this.directionX = 0;
         this.directionY = -20;
       }
     }
 
+
     if(keycode === DOWN_ARROW){
-      this.directionX = 0;
-      this.directionY = 20;
-      if(this.y + this.directionY <= this.y){
-        this.directionX = 0;
-        this.directionY = 0;
-      }else{
+      if(this.tail.length > 1 && this.timesEatin == this.tail.length){
+        console.log("h");
+        var pos = this.tail[this.timesEatin-1];
+        var pos2 = this.tail[this.timesEatin-2];
+        if(pos.y + this.directionY < pos2.y){
+          console.log("o");
+          this.directionX = this.directionX;
+          this.directionY = this.directionY;
+        }else{
+          this.directionX = 0;
+          this.directionY = 20;
+        }
+      }else {
         this.directionX = 0;
         this.directionY = 20;
       }
     }
 
     if(keycode === LEFT_ARROW){
-      this.directionX = -20;
-      this.directionY = 0;
-      if(this.x + this.directionX >= this.x){
-        this.directionX = 0;
-        this.directionY = 0;
-      }else{
+      if(this.tail.length > 1 && this.timesEatin == this.tail.length){
+        console.log("h");
+        var pos = this.tail[this.timesEatin-1];
+        var pos2 = this.tail[this.timesEatin-2];
+
+
+        console.log(pos.x == pos2.x);
+        console.log(pos.y == pos2.y);
+        console.log(pos);
+        console.log(pos2);
+        if(pos.x + this.directionX > pos2.x){
+          console.log("o");
+          this.directionX = this.directionX;
+          this.directionY = this.directionY;
+        }else{
+          this.directionX = -20;
+          this.directionY = 0;
+        }
+      }else {
         this.directionX = -20;
         this.directionY = 0;
       }
     }
 
     if(keycode === RIGHT_ARROW){
-      this.directionX = 20;
-      this.directionY = 0;
-      if(this.x + this.directionX <= this.x){
-        this.directionX = 0;
-        this.directionY = 0;
-      }else{
+      if(this.tail.length > 1 && this.timesEatin == this.tail.length){
+        console.log("h");
+        var pos = this.tail[this.timesEatin-1];
+        var pos2 = this.tail[this.timesEatin-2];
+        if(pos.x + this.directionX < pos2.x){
+          console.log("o");
+          this.directionX = this.directionX;
+          this.directionY = this.directionY;
+        }else{
+          this.directionX = 20;
+          this.directionY = 0;
+        }
+      }else {
         this.directionX = 20;
         this.directionY = 0;
+      }
+    }
+  }
+
+  this.ateItslf = function(){
+    console.log(this.tail.length);
+    if(this.tail.length > 4 && this.timesEatin == this.tail.length){
+      console.log("shit");
+      for(var i = 0; i < this.tail.length; i++){
+        var pos = this.tail[i];
+        var d = dist(this.x,this.y,pos.x,pos.y);
+        if(d == 0){
+          this.timesEatin = 0;
+          this.tail = [];
+        }
       }
     }
   }
@@ -108,6 +151,15 @@ function snake(){
     if(this.x + this.directionX >= canvasDimensions|| this.y + this.directionY >= canvasDimensions||this.x + this.directionX<0||this.y + this.directionY<0){
       this.x = this.x;
       this.y = this.y;
+      if(this.tail.length >= 4 && this.timesEatin == this.tail.length){
+        console.log("h");
+        var pos = this.tail[this.timesEatin-1];
+        if(pos.x + this.directionX >= canvasDimensions|| pos.y + this.directionY >= canvasDimensions||pos.x + this.directionX<0||pos.y + this.directionY<0){
+          console.log("o");
+          this.timesEatin = 0;
+          this.tail = [];
+        }
+      }
     }else{
       this.x += this.directionX;
       this.y += this.directionY;
@@ -118,7 +170,7 @@ function snake(){
     background(85,85,85);
     this.foodXY = this.foodLoc();
 
-    for (var i = 0; i < this.timesEatin; i++) {
+    for (var i = 0; i < this.timesEatin-1; i++) {
       rect(this.tail[i].x, this.tail[i].y,this.snakePiece,this.snakePiece);
     }
 

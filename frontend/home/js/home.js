@@ -55,6 +55,7 @@ function draw(){
   for (var i = 0; i < horiLine.length; i++) {
    horiLine[i] = new drawHoriLine();
   }
+  mySnake.ateItslf();
   mySnake.update();
   mySnake.show();
 }
