@@ -55,7 +55,6 @@ function draw(){
   for (var i = 0; i < horiLine.length; i++) {
    horiLine[i] = new drawHoriLine();
   }
-  mySnake.ateItslf();
   mySnake.update();
   mySnake.show();
 }
@@ -67,6 +66,7 @@ function drawVertLine(){
 }
 
 function drawHoriLine(){
+  console.log("y: "+y);
   yHLine = (canvasDimensions/canvasDimensions);
   y = y + (yHLine * 20);
   line(0,y,canvasDimensions,y);
