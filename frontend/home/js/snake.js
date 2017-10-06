@@ -41,11 +41,9 @@ function snake(){
   this.moveSnake = function(keycode){
     if(keycode === UP_ARROW){
       if(this.tail.length > 1 && this.timesEatin == this.tail.length){
-        console.log("h");
         var pos = this.tail[this.timesEatin-1];
         var pos2 = this.tail[this.timesEatin-2];
         if(pos.y + this.directionY > pos2.y){
-          console.log("o");
           this.directionX = this.directionX;
           this.directionY = this.directionY;
         }else{
@@ -61,11 +59,9 @@ function snake(){
 
     if(keycode === DOWN_ARROW){
       if(this.tail.length > 1 && this.timesEatin == this.tail.length){
-        console.log("h");
         var pos = this.tail[this.timesEatin-1];
         var pos2 = this.tail[this.timesEatin-2];
         if(pos.y + this.directionY < pos2.y){
-          console.log("o");
           this.directionX = this.directionX;
           this.directionY = this.directionY;
         }else{
@@ -80,17 +76,9 @@ function snake(){
 
     if(keycode === LEFT_ARROW){
       if(this.tail.length > 1 && this.timesEatin == this.tail.length){
-        console.log("h");
         var pos = this.tail[this.timesEatin-1];
         var pos2 = this.tail[this.timesEatin-2];
-
-
-        console.log(pos.x == pos2.x);
-        console.log(pos.y == pos2.y);
-        console.log(pos);
-        console.log(pos2);
         if(pos.x + this.directionX > pos2.x){
-          console.log("o");
           this.directionX = this.directionX;
           this.directionY = this.directionY;
         }else{
@@ -105,11 +93,9 @@ function snake(){
 
     if(keycode === RIGHT_ARROW){
       if(this.tail.length > 1 && this.timesEatin == this.tail.length){
-        console.log("h");
         var pos = this.tail[this.timesEatin-1];
         var pos2 = this.tail[this.timesEatin-2];
         if(pos.x + this.directionX < pos2.x){
-          console.log("o");
           this.directionX = this.directionX;
           this.directionY = this.directionY;
         }else{
@@ -126,7 +112,6 @@ function snake(){
   this.ateItslf = function(){
     console.log(this.tail.length);
     if(this.tail.length > 4 && this.timesEatin == this.tail.length){
-      console.log("shit");
       for(var i = 0; i < this.tail.length; i++){
         var pos = this.tail[i];
         var d = dist(this.x,this.y,pos.x,pos.y);
@@ -152,10 +137,8 @@ function snake(){
       this.x = this.x;
       this.y = this.y;
       if(this.tail.length >= 4 && this.timesEatin == this.tail.length){
-        console.log("h");
         var pos = this.tail[this.timesEatin-1];
         if(pos.x + this.directionX >= canvasDimensions|| pos.y + this.directionY >= canvasDimensions||pos.x + this.directionX<0||pos.y + this.directionY<0){
-          console.log("o");
           this.timesEatin = 0;
           this.tail = [];
         }
