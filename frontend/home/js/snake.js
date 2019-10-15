@@ -1,5 +1,5 @@
 function snake(){
-  console.log(canvasDimensions);
+  // console.log(canvasDimensions);
   this.x = Math.round(random(canvasDimensions-20)/20)*20;
   this.y = Math.round(random(canvasDimensions-20)/20)*20;
   this.directionX = 20;
@@ -110,11 +110,11 @@ function snake(){
   }
 
   this.ateItslf = function(){
-    console.log(this.tail.length);
+    // console.log(this.tail.length);
     if(this.tail.length > 4 && this.timesEatin == this.tail.length){
       for(var i = 0; i < this.tail.length; i++){
         var pos = this.tail[i];
-        var d = dist(this.x,this.y,pos.x,pos.y);
+        var d = dist(this.x, this.y, pos.x, pos.y);
         if(d == 0){
           this.timesEatin = 0;
           this.tail = [];

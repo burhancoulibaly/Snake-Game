@@ -66,7 +66,7 @@ function drawVertLine(){
 }
 
 function drawHoriLine(){
-  console.log("y: "+y);
+  // console.log("y: "+y);
   yHLine = (canvasDimensions/canvasDimensions);
   y = y + (yHLine * 20);
   line(0,y,canvasDimensions,y);
@@ -74,6 +74,7 @@ function drawHoriLine(){
 
 function keyPressed(){
   mySnake.moveSnake(keyCode);
+  mySnake.ateItslf();
   mySnake.update();
   mySnake.show();
 }
